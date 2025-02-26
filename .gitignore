@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Ignorar este archivo para facilitar la Carga
+olist.db
+
 # Distribution / packaging
 .Python
 build/
