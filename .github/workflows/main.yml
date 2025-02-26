@@ -1,0 +1,59 @@
+name: Data Pipeline Execution
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run_pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗️ Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m venv venv
+          echo "✅ Entorno virtual creado"
+          venv/bin/python -m pip install --upgrade pip
+          echo "✅ pip actualizado"
+          venv/bin/python -m pip install -r requirements.txt
+          echo "✅ Dependencias instaladas"
+          venv/bin/python -m pip list | grep requests || echo "⚠️ requests NO está instalado"
+
+      - name: 🔍 Extract data
+        run: |
+          venv/bin/python -c "
+          import pickle;
+          from src.extract import extract;
+          from src import config;
+          csv_dataframes = extract(config.DATASET_ROOT_PATH, config.get_csv_to_table_mapping(), config.PUBLIC_HOLIDAYS_URL);
+          with open('csv_dataframes.pkl', 'wb') as f:
+              pickle.dump(csv_dataframes, f);
+          "
+          echo "✅ Datos extraídos y guardados en archivo temporal"
+
+      - name: 💾 Load data into database
+        run: |
+          venv/bin/python -c "
+          import pickle;
+          from src.load import load;
+          from src import config;
+          from sqlalchemy import create_engine;
+          ENGINE = create_engine(rf'sqlite:///{config.SQLITE_BD_ABSOLUTE_PATH}', echo=False);
+          with open('csv_dataframes.pkl', 'rb') as f:
+              csv_dataframes = pickle.load(f);
+          load(csv_dataframes, ENGINE);
+          "
+          echo "✅ Datos cargados en la base de datos"
+
+      - name: ✅ Finish workflow
+        run: echo "Pipeline execution finished successfully."
