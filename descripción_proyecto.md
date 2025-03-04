@@ -43,6 +43,13 @@ $ pip install -r requirements.txt
 
 *Nota:* Se recomienda instalar las dependencias dentro de un entorno virtual.
 
+Se realizo con el entorno virtual de venv 
+```console
+py -m venv venv
+``` 
+
+Version de Python Utilizada: Python 3.13.2
+
 ## Estilo de Código
 
 Seguir una guía de estilo mantiene el código limpio y mejora la legibilidad, facilitando las contribuciones y las revisiones de código. Los formateadores automáticos de código en Python aseguran que tu código mantenga un estilo consistente sin necesidad de trabajo manual. Si te importa seguir un estilo específico, usar una herramienta automatizada es la mejor opción. Esto evita discusiones innecesarias sobre detalles menores en las revisiones de código y te ahorra mucho tiempo.
