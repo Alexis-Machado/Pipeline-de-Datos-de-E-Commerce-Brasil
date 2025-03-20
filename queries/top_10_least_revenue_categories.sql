@@ -1,3 +1,30 @@
+SELECT 
+    t.product_category_name_english AS Category,
+    COUNT(DISTINCT o.order_id) AS Num_order,
+    ROUND(SUM(p.payment_value), 2) AS Revenue
+FROM 
+    olist_orders o
+JOIN 
+    olist_order_items i ON o.order_id = i.order_id
+JOIN 
+    olist_products pr ON i.product_id = pr.product_id
+JOIN 
+    product_category_name_translation t ON pr.product_category_name = t.product_category_name
+JOIN 
+    olist_order_payments p ON o.order_id = p.order_id
+WHERE 
+    o.order_status = 'delivered'
+    AND pr.product_category_name IS NOT NULL
+    AND o.order_delivered_customer_date IS NOT NULL
+GROUP BY 
+    t.product_category_name_english
+ORDER BY 
+    Revenue ASC
+LIMIT 10;
+
+
+--------------------------------------------REALIZADO--------------------------------------------------------
+
 -- TODO: Esta consulta devolverá una tabla con las 10 categorías con menores ingresos
 -- (en inglés), el número de pedidos y sus ingresos totales. La primera columna será
 -- Category, que contendrá las 10 categorías con menores ingresos; la segunda será

@@ -5,6 +5,7 @@ import plotly.express as px
 import seaborn as sns
 
 from pandas import DataFrame
+import pandas as pd
 
 
 def plot_revenue_by_month_year(df: DataFrame, year: int):
@@ -174,15 +175,33 @@ def plot_top_10_revenue_categories(df: DataFrame):
 
 
 def plot_freight_value_weight_relationship(df: DataFrame):
-    """Plot freight value weight relationship
+    """Plot freight value vs product weight relationship.
 
     Args:
-        df (DataFrame): Dataframe with freight value weight relationship query result
+        df (DataFrame): DataFrame con las columnas 'product_weight_g' y 'freight_value'
+                        que describen el peso y el valor del flete, respectivamente.
     """
+    
     # TODO: Representar gráficamente la relación entre el valor del flete y el peso usando un scatterplot de seaborn.
     # El eje x debe ser el peso (weight) y el eje y debe ser el valor del flete (freight value).
 
-    raise NotImplementedError
+    # Ajustamos el estilo y el tamaño de la figura
+    plt.figure(figsize=(8, 6))
+
+    # Creamos el scatterplot con seaborn
+    sns.scatterplot(
+        data=df,
+        x='product_weight_g',     
+        y='freight_value',        
+        alpha=0.7                
+    )
+
+    plt.xlabel('Product Weight (g)')
+    plt.ylabel('Freight Value')
+    plt.title('Freight Value vs Product Weight')
+
+    # Mostramos el gráfico
+    plt.show()
 
 
 def plot_delivery_date_difference(df: DataFrame):
@@ -197,13 +216,51 @@ def plot_delivery_date_difference(df: DataFrame):
 
 
 def plot_order_amount_per_day_with_holidays(df: DataFrame):
-    """Plot order amount per day with holidays
+    """Grafica la cantidad de pedidos por día, marcando los días festivos.
 
     Args:
-        df (DataFrame): Dataframe with order amount per day with holidays query result
+        df (DataFrame): DataFrame con los resultados de cantidad de pedidos por día y días festivos.
+                       Se espera que tenga las columnas 'order_count', 'date' y 'holiday'.
     """
+    
     # TODO: Graficar el monto de pedidos por día con los días festivos usando matplotlib.
     # Marcar los días festivos con líneas verticales.
     # Sugerencia: usar plt.axvline.
 
-    raise NotImplementedError
+    # Convertimos la columna 'date' a formato datetime
+    df['date'] = pd.to_datetime(df['date'])
+
+    # Creamos la figura y el eje
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    # Graficamos la cantidad de pedidos por día (línea verde)
+    ax.plot(df['date'], df['order_count'], label='Order Count', color='green')
+
+    # Verificamos si existe la columna 'holiday' que indique los días festivos
+    if 'holiday' in df.columns:
+        # 'holiday' es booleana: True indica un día festivo
+        holiday_dates = df.loc[df['holiday'] == True, 'date']
+    else:
+        holiday_dates = []
+
+    # Dibujamos líneas verticales para cada día festivo (línea punteada azul)
+    for i, holiday in enumerate(holiday_dates):
+        label = 'Holiday' if i == 0 else None
+        ax.axvline(
+            holiday,
+            color='blue',
+            linestyle=':',
+            alpha=0.7,
+            label=label
+        )
+
+    ax.set_title('Order Count per Day with Holidays')
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Order Count')
+    ax.legend()
+
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+    #raise NotImplementedError

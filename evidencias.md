@@ -20,7 +20,7 @@ py -m venv venv
 venv\Scripts\activate
 ```
 
-📌 **Versión de Python utilizada:** **Python 3.13.2**  
+📌 **Versión de Python utilizada:** **Python 3.10.10**  
 
 ---
 
@@ -48,9 +48,9 @@ pip freeze > requirements.txt
 
 # 📸 Evidencias del Proceso  
 
-## ✅ 1. Validación del Test de Extracción  
-🔍 Se valida la correcta extracción de los datos para asegurar que se obtienen correctamente.  
-![🛠 Validación del Test de Extracción](images/evidencias_img/test_extract.png)  
+## ✅ 1. Validación del Test de Extracción y Transformacion
+🔍 Se valida la correcta extracción y transformacion de los datos para asegurar que se obtienen correctamente.  
+![🛠 Validación del Test de Extracción y Transformacion](images/evidencias_img/test_extract_y_load.png)  
 
 ---
 
@@ -60,8 +60,8 @@ pip freeze > requirements.txt
 
 ---
 
-## 🔄 3. Confirmación de la Ejecución  
-📊 Se verifica que la ejecución se haya realizado correctamente mostrando mensajes de validación y resultados completos.  
+## 🔄 3. Confirmación de la Ejecución de Carga   
+📊 Se verifica que la ejecución de la carga se haya realizado correctamente mostrando mensajes de validación y resultados completos.  
 ![📊 Confirmación de Ejecución](images/evidencias_img/load.png)  
 
 ---
@@ -84,7 +84,30 @@ pip freeze > requirements.txt
 
 ---
 
-## ✅ 7. Validación del Flujo de Trabajo en GitHub Actions  
+## 7. Ejecución Integral y Validación del Notebook del Proyecto
+📓 Se ejecuta todo lo del archivo **Project.ipynb** para validar de manera completa el flujo de trabajo.  
+🔍 En este notebook se integran y ponen a prueba todas las etapas: extracción, carga transformación y verificación de la base de datos, gráficos, visualizaciones, entre otras.  
+✅ Se comprueba que cada proceso se ejecute correctamente y que genere los resultados esperados.
+![📂 Validación Completa del Project.ipynb](images/evidencias_img/project.png)
+
+---
+
+## ✅ 8. Creación del Dashboard en Power BI  
+📊 Se crea un dashboard en **Power BI** que consolida los insights de los datos analizados (2016-2018) para abordar el problema de negocio.  
+🔍 Se visualizan ingresos anuales, categorías de productos, ingresos por estado, tiempos de entrega y la diferencia entre la fecha estimada y la real, entre otros análisis adicionales.  
+🔗 [Accede a la Página EA2 Completa]()  
+![📊 Visualización del Dashboard en Power BI](images/evidencias_img/dashboard.png)
+
+---
+
+## ✅ 9. Creación de una Página Web Orquestando la Actividad 2
+🌐 Se desarrolla una página web sencilla donde se orquestan la EA1 y la EA2, proporcionando un acceso centralizado a los diferentes análisis y evidencias del proyecto. La página incluye el dashboard interactivo, conclusiones con Power BI Access, y enlaces para descargar la carpeta comprimida de la EA2 y descargar el dashboard.
+🔗 [Accede a la Página EA2 Completa]() 
+
+---
+
+## ✅ 10. Validación del Flujo de Trabajo en GitHub Actions  
 🚀 Se comprueba que el flujo de trabajo en **GitHub Actions** se ejecutó exitosamente, garantizando la automatización total del proceso.  
 ![🚀 Validación del Flujo de Trabajo](images/evidencias_img/workflow.png)  
-```
+
+---

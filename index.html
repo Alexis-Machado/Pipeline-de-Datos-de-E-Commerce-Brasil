@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidencia de Aprendizaje 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.animate-fade-in').forEach(el => {
+                el.classList.add('opacity-0');
+                setTimeout(() => el.classList.remove('opacity-0'), 300);
+            });
+        });
+    </script>
+</head>
+
+<body
+    class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-100 to-cyan-200 text-gray-900">
+
+    <!-- Título e imagen superior -->
+    <div class="flex items-center mb-3 animate-fade-in transition-opacity duration-1000">
+        <img src="https://i.ibb.co/d44xtMwk/IUD.png" alt="IUD" class="w-15 h-14 mr-4">
+        <h1 class="text-lg font-bold text-black">
+            EVIDENCIA DE APRENDIZAJE 2 🔹 PROYECTO INTEGRADO IV - INTEGRACIÓN DE INFORMACIÓN
+        </h1>
+    </div>
+
+    <!-- Contenedor con los botones -->
+    <div class="fixed bottom-0 left-0 flex gap-2 p-2 animate-fade-in transition-opacity duration-1000 z-50">
+        <a href="https://drive.google.com/file/d/1AMBLqrpJEqs7DBq7xzZu0PDvjgA3iF29/view?usp=sharing" target="_blank"
+            class="flex items-center px-3 py-1 bg-blue-500 text-white text-sm rounded-lg shadow-lg 
+              hover:scale-105 hover:bg-blue-700 transition transform duration-300">
+            <i class="fas fa-file-alt mr-1 text-sm"></i>
+            <strong>EVIDENCIA 2</strong>
+        </a>
+        <a href="https://drive.google.com/file/d/1PoMsyUQwIcor8Kjqx9qTpF7ntLSwduU8/view?usp=sharing" target="_blank"
+            class="flex items-center px-3 py-1 bg-blue-500 text-white text-sm rounded-lg shadow-lg 
+              hover:scale-105 hover:bg-blue-700 transition transform duration-300">
+            <i class="fas fa-chess-board mr-1 text-sm"></i>
+            <strong>DOWNLOAD DASHBOARD</strong>
+        </a>
+        <a href="https://app.powerbi.com/groups/me/insights/79d2362d-1b63-40bc-aadd-26026839d9c3?experience=power-bi"
+            target="_blank" class="flex items-center px-3 py-1 bg-blue-500 text-white text-sm rounded-lg shadow-lg 
+              hover:scale-105 hover:bg-blue-700 transition transform duration-300">
+            <i class="fas fa-chess-board mr-1 text-sm"></i>
+            <strong>CONCLUSIONES POWER BI ACCESS</strong>
+        </a>
+    </div>
+
+    <!-- Iframe de Power BI -->
+    <div class="relative w-4/5 pt-[40.25%] mt-0 animate-fade-in transition-opacity duration-1000">
+        <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-xl"
+            src="https://app.powerbi.com/view?r=eyJrIjoiNzZiOTQwYWQtYzI4Zi00NTllLWFjZjgtYTgwYmE0MjMwYjY3IiwidCI6IjQ5N2U5MmViLWRhNTUtNDUwZC1hMWNlLTMxZmYyYWQ1ZmMwOCJ9&pageName=ReportSection0aafca44739ed3511195"
+            allowFullScreen>
+        </iframe>
+    </div>
+
+</body>
+
+</html>
