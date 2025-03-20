@@ -24,7 +24,8 @@ jobs:
       - name: 📂 Subir archivos estáticos
         uses: actions/upload-pages-artifact@v3
         with:
-          path: . 
+          path: .
+          name: github-pages  
 
       - name: 🚀 Desplegar en GitHub Pages
         uses: actions/deploy-pages@v2
