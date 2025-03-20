@@ -13,17 +13,18 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout del repositorio
+      - name: 📥 Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar GitHub Pages
+      - name: ⚙️ Configurar GitHub Pages
         uses: actions/configure-pages@v3
 
-      - name: Subir archivos estáticos
-        uses: actions/upload-pages-artifact@v2
+      - name: 📂 Subir archivos estáticos
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: .  
+          path: . 
 
-      - name: Desplegar en GitHub Pages
+      - name: 🚀 Desplegar en GitHub Pages
         uses: actions/deploy-pages@v2
