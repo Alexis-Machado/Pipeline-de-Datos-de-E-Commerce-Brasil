@@ -1,0 +1,100 @@
+version: '3.8' # Versión del formato de docker-compose 
+
+services:
+  # Servicio de base de datos PostgreSQL
+  postgres:
+    image: postgres:13 # Usamos la imagen oficial de Postgres en la versión 13
+    environment:
+      POSTGRES_USER: airflow # Nombre de usuario para la base de datos
+      POSTGRES_PASSWORD: airflow # Contraseña para el usuario
+      POSTGRES_DB: airflow # Nombre de la base de datos que se creará
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Montamos el volumen 'postgres_data' para persistir datos
+    healthcheck:
+      # Verificamos si la base de datos está lista usando el comando pg_isready
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s # Tiempo entre verificaciones
+      retries: 5 # Número de reintentos antes de marcarlo como no saludable
+    restart: always # Reiniciamos el contenedor siempre que se detenga
+
+  # Servicio de Airflow Webserver
+  airflow-webserver:
+    build:
+      context: . # Indicamos que se construye la imagen a partir del Dockerfile en este directorio
+      dockerfile: Dockerfile
+    image: custom-airflow:2.9.0 # Nombre y etiqueta de la imagen construida
+    depends_on:
+      - postgres # Este servicio depende de que postgres esté levantado
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      # Cadena de conexión a la base de datos PostgreSQL
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false" # Evitamos cargar ejemplos por defecto
+      AIRFLOW__WEBSERVER__SECRET_KEY: OMrxOgDXtTEONnebXBod8Q==
+    volumes:
+      # Montamos las carpetas locales en los directorios correspondientes dentro del contenedor
+      - ./dags:/opt/airflow/dags
+      - ./dataset:/opt/airflow/dataset
+      - ./queries:/opt/airflow/queries
+      - ./src:/opt/airflow/src
+    ports:
+      - "8080:8080" # Exponemos el puerto 8080 para acceder a la interfaz de Airflow
+    command: airflow webserver # Comando que se ejecuta al iniciar el contenedor
+    healthcheck:
+      # Verificamos la salud del webserver consultando /health en el puerto 8080
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s   # Cada 30 segundos
+      retries: 5      # Reintentamos 5 veces antes de marcar como no saludable
+    restart: always   # Reiniciamos siempre el contenedor si se detiene
+
+  # Servicio de Airflow Scheduler
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: custom-airflow:2.9.0
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      # Clave secreta del webserver (es la misma que la del webserver para evitar inconsistencias)
+      AIRFLOW__WEBSERVER__SECRET_KEY: OMrxOgDXtTEONnebXBod8Q== # Misma clave que webserver
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./dataset:/opt/airflow/dataset
+      - ./queries:/opt/airflow/queries
+      - ./src:/opt/airflow/src
+    command: airflow scheduler # Comando que ejecuta el scheduler de Airflow
+    restart: always
+
+  # Servicio para inicializar la base de datos de Airflow y crear el usuario admin
+  airflow-init:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: custom-airflow:2.9.0
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    entrypoint: /bin/bash # Se usa /bin/bash para ejecutar varios comandos en secuencia
+    command:
+      - -c
+      - |
+        # Inicializa la base de datos de Airflow
+        airflow db init &&
+        # Crea un usuario admin para acceder a la interfaz
+        airflow users create \
+          --username admin \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com \
+          --password admin
+
+volumes:
+  postgres_data: # Volumen que persiste los datos de PostgreSQL

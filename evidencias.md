@@ -111,3 +111,33 @@ pip freeze > requirements.txt
 ![🚀 Validación del Flujo de Trabajo](images/evidencias_img/workflow.png)  
 
 ---
+
+## ✅ 11. Verificación de Contenedores en Ejecución  
+🛠 Se inicia el entorno con **Docker Compose** y se verifica que los contenedores estén corriendo correctamente.
+
+📌 **Comando para iniciar los contenedores:**
+```console
+ docker-compose up -d
+```
+
+📌 **Verificación de contenedores en ejecución:**
+```console
+docker ps
+```
+✅ Se confirman los servicios en ejecución, incluyendo **Airflow**, **PostgreSQL** y otros componentes del ecosistema.
+
+![📦 Contenedores en Ejecución](images/evidencias_img/containers.png)
+
+---
+
+## ✅ 12. Ejecución del DAG en Airflow  
+🚀 Se accede a la interfaz de **Apache Airflow** para verificar la correcta ejecución del flujo de datos mediante el **DAG `olist_pipeline_dag`**.
+
+📌 **Acceso a Airflow Web UI:**  
+🔗 [http://localhost:8080](http://localhost:8080)
+
+✅ Se muestra la ejecución satisfactoria del DAG con sus tareas en estado **"Success"**.
+
+![🚀 Ejecución del DAG en Airflow](images/evidencias_img/airflow_dag.png)
+
+---

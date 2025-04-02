@@ -3,7 +3,7 @@
 
   ━━━━━━━━━━━━━━━━━━━━━━━
 
-  <h1>📋 Evidencia de Aprendizaje 2<br>
+  <h1>📋 Proyecto Integrador<br>
   <sub>Pipeline de Datos de E-Commerce Brasil</sub></h1>
   <h3>Proyecto Integrador IV</h3>
 
@@ -25,5 +25,5 @@
 
   ━━━━━━━━━━━━━━━━━━━━━━━
 
-  **🗓️ 20 de Marzo del 2025**  
+  **🗓️ 31 de Marzo del 2025**  
 </div>
