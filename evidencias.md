@@ -95,14 +95,14 @@ pip freeze > requirements.txt
 ## ✅ 8. Creación del Dashboard en Power BI  
 📊 Se crea un dashboard en **Power BI** que consolida los insights de los datos analizados (2016-2018) para abordar el problema de negocio.  
 🔍 Se visualizan ingresos anuales, categorías de productos, ingresos por estado, tiempos de entrega y la diferencia entre la fecha estimada y la real, entre otros análisis adicionales.  
-🔗 [Accede a la Página EA2 Completa]()  
+🔗 [Accede a la Página EA2 Completa](https://alexis-machado.github.io/Pipeline-de-Datos-de-E-Commerce-Brasil/)  
 ![📊 Visualización del Dashboard en Power BI](images/evidencias_img/dashboard.png)
 
 ---
 
 ## ✅ 9. Creación de una Página Web Orquestando la Actividad 2
 🌐 Se desarrolla una página web sencilla donde se orquestan la EA1 y la EA2, proporcionando un acceso centralizado a los diferentes análisis y evidencias del proyecto. La página incluye el dashboard interactivo, conclusiones con Power BI Access, y enlaces para descargar la carpeta comprimida de la EA2 y descargar el dashboard.
-🔗 [Accede a la Página EA2 Completa]() 
+🔗 [Accede a la Página EA2 Completa](https://alexis-machado.github.io/Pipeline-de-Datos-de-E-Commerce-Brasil/) 
 
 ---
 
@@ -111,6 +111,7 @@ pip freeze > requirements.txt
 ![🚀 Validación del Flujo de Trabajo](images/evidencias_img/workflow.png)  
 
 ---
+<<<<<<< HEAD
 
 ## ✅ 11. Verificación de Contenedores en Ejecución  
 🛠 Se inicia el entorno con **Docker Compose** y se verifica que los contenedores estén corriendo correctamente.
@@ -141,3 +142,5 @@ docker ps
 ![🚀 Ejecución del DAG en Airflow](images/evidencias_img/airflow_dag.png)
 
 ---
+=======
+>>>>>>> 12bf19106bfc1c3431aaf7b49cfcb4f17d689afd
